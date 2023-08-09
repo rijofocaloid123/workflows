@@ -29,6 +29,8 @@ jobs:
         run: |
           docker pull ghcr.io/zaproxy/zaproxy:stable
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml
+          base64 *.html > encoded_file.txt
+          cat encoded_file.txt
           cat /zap/wrk/*html
 
  
