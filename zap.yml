@@ -1,0 +1,93 @@
+---
+env:
+  contexts:
+  - name: "Automation Context"
+    urls:
+    - "https://dev-bo.nephroplus.com/"
+    - "https://dev-bo.nephroplus.com/bo"
+    - "https://dev-bo.nephroplus.com/keycloak"
+    includePaths:
+    - "https://dev-bo.nephroplus.com/.*"
+    - "https://dev-bo.nephroplus.com/bo.*"
+    - "https://dev-bo.nephroplus.com/keycloak.*"
+    excludePaths: []
+    authentication:
+      method: "form"
+      parameters:
+        loginRequestBody: "username=dev@focaloid.com&password=test&credentialId="
+        loginPageUrl: ""
+        loginRequestUrl: "https://dev-bo.nephroplus.com/keycloak/realms/nephroplus/login-actions/authenticate.*"
+      verification:
+        method: "response"
+        pollFrequency: 60
+        pollUnits: "requests"
+        pollUrl: ""
+        pollPostData: ""
+    sessionManagement:
+      method: "cookie"
+      parameters: {}
+    technology:
+      exclude: []
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+  vars: {}
+jobs:
+- parameters: {}
+  name: "alertFilter"
+  type: "alertFilter"
+- parameters:
+    scanOnlyInScope: true
+    enableTags: false
+  rules: []
+  name: "passiveScan-config"
+  type: "passiveScan-config"
+- parameters:
+    action: "add"
+    type: "httpsender"
+    engine: "Graal.js"
+    name: "http2.js"
+    file: "/zap/wrk/http2.js"
+  name: "script"
+  type: "script"
+- parameters: {}
+  tests:
+  - onFail: "INFO"
+    statistic: "automation.spider.urls.added"
+    site: ""
+    operator: ">="
+    value: 1
+    type: "stats"
+    name: "At least 10 URLs found"
+  name: "spider"
+  type: "spider"
+- parameters:
+    maxDuration: 60
+    maxCrawlDepth: 10
+    numberOfBrowsers: 1
+  tests:
+  - onFail: "INFO"
+    statistic: "spiderAjax.urls.added"
+    site: ""
+    operator: ">="
+    value: 10
+    type: "stats"
+    name: "At least 10 URLs found"
+  name: "spiderAjax"
+  type: "spiderAjax"
+- parameters: {}
+  name: "passiveScan-wait"
+  type: "passiveScan-wait"
+- parameters: {}
+  policyDefinition:
+    rules: []
+  name: "activeScan"
+  type: "activeScan"
+- parameters:
+    template: "risk-confidence-html"
+    reportDir: "/zap/wrk/"
+    reportTitle: "ZAP Scanning Report"
+    reportDescription: ""
+  name: "report"
+  type: "report"
