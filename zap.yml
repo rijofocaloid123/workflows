@@ -34,9 +34,6 @@ env:
     progressToStdout: true
   vars: {}
 jobs:
-- parameters: {}
-  name: "alertFilter"
-  type: "alertFilter"
 - parameters:
     scanOnlyInScope: true
     enableTags: false
