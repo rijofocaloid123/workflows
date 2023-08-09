@@ -71,12 +71,6 @@ env:
   vars: {}
 jobs:
 - parameters:
-    scanOnlyInScope: true
-    enableTags: false
-  rules: []
-  name: "passiveScan-config"
-  type: "passiveScan-config"
-- parameters:
     action: "add"
     type: "httpsender"
     engine: "Graal.js"
@@ -84,17 +78,6 @@ jobs:
     file: "/zap/wrk/http2.js"
   name: "script"
   type: "script"
-- parameters: {}
-  tests:
-  - onFail: "INFO"
-    statistic: "automation.spider.urls.added"
-    site: ""
-    operator: ">="
-    value: 1
-    type: "stats"
-    name: "At least 10 URLs found"
-  name: "spider"
-  type: "spider"
 - parameters:
     template: "risk-confidence-html"
     reportDir: "/zap/wrk/"
