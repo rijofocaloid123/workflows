@@ -29,6 +29,7 @@ jobs:
         run: |
           docker pull ghcr.io/zaproxy/zaproxy:stable
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml
+          cat /zap/wrk/zap-report.html
 
  
 
@@ -38,8 +39,7 @@ jobs:
           name: zap-report
           path: /zap/wrk/zap-report.html
 
-      - name: Checkout Repository
-        uses: actions/checkout@v2
+
 
       - name: Configure AWS Credentials
         run: |
