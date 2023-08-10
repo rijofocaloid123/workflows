@@ -28,7 +28,7 @@ jobs:
       - name: Run OWASP ZAP Scan
         run: |
           docker pull ghcr.io/zaproxy/zaproxy:stable
-          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
+          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml >> /zap/wrk/report.html
           report_filename=$(ls /zap/wrk/*.html)
           base64 *.html > report_filename
 
@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: zap-report
-          path: ~/report_filename
+          path: /zap/wrk/*html
 
 
 
