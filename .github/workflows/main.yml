@@ -25,7 +25,8 @@ jobs:
 
       - name: Create ZAP directory
         run: | 
-         mkdir -p /zap/wrk/
+         sudo chmod -R 777 $(pwd)
+         sudo mkdir -p /zap/wrk/
 
 
       - name: Run OWASP ZAP Scan
