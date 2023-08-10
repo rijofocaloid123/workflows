@@ -23,13 +23,15 @@ jobs:
         run: |
           sudo chmod -R 777 $(pwd)
 
- 
+      - name: Create ZAP directory
+        run: | 
+         mkdir -p /zap/wrk/
+
 
       - name: Run OWASP ZAP Scan
         run: |
           docker pull ghcr.io/zaproxy/zaproxy:stable
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
-          sudo mkdir /zap/wrk/
           sudo chmod -R 777 /zap/wrk/*'
           sudo ls /zap/wrk/*.html
           base64 *.html > report_filename.txt
