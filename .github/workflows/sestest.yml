@@ -33,7 +33,7 @@ jobs:
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
           pwd 
           ls -la
-          zip -r zap_report.zip *.html
+          zip -r zap_report.zip *
           python ses.py
         env:
           AWS_ACCESS_KEY_ID: AKIA6LBJHUQAJT5JTVYC
