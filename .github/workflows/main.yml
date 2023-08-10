@@ -53,8 +53,8 @@ jobs:
           touch ~/.aws/credentials
           chmod 777 ~/.aws/credentials
           echo "[default]" > ~/.aws/credentials
-          echo "aws_access_key_id={ AKIA6LBJHUQAB2EK2YVJ }" >> ~/.aws/credentials
-          echo "aws_secret_access_key={ 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 }" >> ~/.aws/credentials
+          echo "aws_access_key_id={ AKIA6LBJHUQANDBJEPVC }" >> ~/.aws/credentials
+          echo "aws_secret_access_key={ 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 }" >> ~/.aws/credentials
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -66,7 +66,7 @@ jobs:
             --from "rijomathew@focaloid.com" \
             --destination "ToAddresses=rijomathew@focaloid.com" \
             --message "Subject={Data=Email Subject},Body={Text={Data=Email Body}}" \
-            --raw-message fileb:/zap/wrk/zap-report.html \
+            --raw-message fileb:/home/runner/work/workflows/workflows/zap_report.zip \
             --attachment "Name=zap_report.zip,Content=$(base64 /home/runner/work/workflows/workflows/zap_report.zip)"
 
 
