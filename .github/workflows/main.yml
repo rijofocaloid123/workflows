@@ -39,7 +39,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: zap-report
-          path: ${{ report_filename }}
+          path: ~/report_filename
 
 
 
