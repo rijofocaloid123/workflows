@@ -1,0 +1,37 @@
+on:
+  push:
+    branches:
+      - main  # Adjust this to the appropriate branch
+
+ 
+
+jobs:
+  send_email:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+ 
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+ 
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install boto3
+
+ 
+
+    - name: Run Python script to send email
+      run: |
+        python send_email.py
+      env:
+        AWS_ACCESS_KEY_ID: AKIA6LBJHUQAB2EK2YVJ
+        AWS_SECRET_ACCESS_KEY: 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
+        # Add other environment variables as needed
