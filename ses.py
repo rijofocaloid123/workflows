@@ -25,7 +25,7 @@ body_html = '<html><body><h1>This is a test email with an attachment sent from b
  
 
 # Path to the file you want to attach
-attachment_file_path = 'html.zip'
+attachment_file_path = '/home/runner/work/workflows/workflows/zap_report.zip'
  
  
 
