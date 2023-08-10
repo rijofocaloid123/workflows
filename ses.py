@@ -9,8 +9,8 @@ from email.mime.application import MIMEApplication
  
 
 # Set your AWS credentials
-aws_access_key = 'AKIA6LBJHUQAB2EK2YVJ'
-aws_secret_key = 'Q11BSy0U1jgn2TFZVX0gY6fyAYuXey4W1NAd7hPo'
+aws_access_key = 'AKIA6LBJHUQAJT5JTVYC'
+aws_secret_key = 'JHvBAaj+Z34udBH2zi44eTvyKIrkBNqml5fNW4kb'
 region = 'eu-east-1'  # Change to your desired AWS region 
 
  
