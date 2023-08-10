@@ -1,37 +1,40 @@
+name: OWASP ZAP Scan
+
 on:
   push:
     branches:
-      - main  # Adjust this to the appropriate branch
-
- 
+      - main  # Change this to your default branch name
 
 jobs:
-  send_email:
-    runs-on: ubuntu-latest 
+  zap_scan:
+    runs-on: ubuntu-latest
+    
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
- 
- 
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
+      - name: Set up permissions
+        run: |
+          sudo chmod -R 777 $(pwd)
 
- 
+      - name: Set up Python and send email
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install boto3
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3
 
- 
-
-    - name: Run Python script to send email
-      run: |
-        python ses.py
-      env:
-        AWS_ACCESS_KEY_ID: AKIA6LBJHUQAJT5JTVYC
-        AWS_SECRET_ACCESS_KEY: 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
-        # Add other environment variables as needed
+      - name: Run OWASP ZAP Scan
+        run: |
+          docker pull ghcr.io/zaproxy/zaproxy:stable
+          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yaml || true
+          pwd 
+          ls -la
+          zip -r zap_report.zip *.html
+          python ses.py
+        env:
+          AWS_ACCESS_KEY_ID: AKIA6LBJHUQAJT5JTVYC
+          AWS_SECRET_ACCESS_KEY: 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
