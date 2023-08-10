@@ -25,7 +25,7 @@ body_html = '<html><body><h1>This is a test email with an attachment sent from b
  
 
 # Path to the file you want to attach
-attachment_file_path = 'zap.html'
+attachment_file_path = 'http2.js'
 
  
 
