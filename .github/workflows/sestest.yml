@@ -32,6 +32,6 @@ jobs:
       run: |
         python ses.py
       env:
-        AWS_ACCESS_KEY_ID: AKIA6LBJHUQAB2EK2YVJ
-        AWS_SECRET_ACCESS_KEY: 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
+        AWS_ACCESS_KEY_ID: AKIA6LBJHUQAJT5JTVYC
+        AWS_SECRET_ACCESS_KEY: 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
         # Add other environment variables as needed
