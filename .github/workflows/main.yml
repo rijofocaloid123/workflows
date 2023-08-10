@@ -35,9 +35,8 @@ jobs:
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
           pwd 
           ls -la
-          sudo chmod -R 777 /zap/wrk/*'
-          sudo ls /zap/wrk/*.html
-          base64 *.html > report_filename.txt
+          sudo chmod -R 777 /home/runner/work/workflows/workflows/*'
+         
 
 
  
@@ -46,7 +45,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: zap-report
-          path: /zap/wrk/*html
+          path: /home/runner/work/workflows/workflows/2023-08-10-ZAP-Report-dev-bo.nephroplus.com.html
 
 
 
