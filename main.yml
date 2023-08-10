@@ -1,1 +1,75 @@
-1
+name: OWASP ZAP Scan
+
+ 
+
+on:
+  push:
+    branches:
+      - main  # Change this to your default branch name
+ 
+ 
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+
+ 
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up permissions
+        run: |
+          sudo chmod -R 777 $(pwd)
+
+      - name: Create ZAP directory
+        run: | 
+         sudo chmod -R 777 $(pwd)
+         sudo mkdir -p /zap/wrk/
+
+
+      - name: Run OWASP ZAP Scan
+        run: |
+          docker pull ghcr.io/zaproxy/zaproxy:stable
+          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
+          pwd 
+          ls -la
+          zip -r zap_report.zip *.html
+         
+
+
+ 
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: zap-report
+          path: /home/runner/work/workflows/workflows/zap_report.zip
+          
+      - name: Configure AWS Credentials
+        run: |
+          mkdir ~/.aws/
+          touch ~/.aws/credentials
+          chmod 777 ~/.aws/credentials
+          echo "[default]" > ~/.aws/credentials
+          echo "aws_access_key_id={ AKIA6LBJHUQANDBJEPVC }" >> ~/.aws/credentials
+          echo "aws_secret_access_key={ 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 }" >> ~/.aws/credentials
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+      - name: Send Email via SES
+        run: |
+          echo "This is the content of the email." > email.txt
+          aws ses send-email \
+            --from "rijomathew@focaloid.com" \
+            --destination "ToAddresses=rijomathew@focaloid.com" \
+            --message "Subject={Data=Email Subject},Body={Text={Data=Email Body}}" \
+            --raw-message fileb:/home/runner/work/workflows/workflows/zap_report.zip \
+            --attachment "Name=zap_report.zip,Content=$(base64 /home/runner/work/workflows/workflows/zap_report.zip)"
+
+
+
+
+
