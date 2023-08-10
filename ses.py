@@ -16,8 +16,8 @@ region = 'eu-east-1'  # Change to your desired AWS region
  
 
 # Set email parameters
-sender_email = 'rijomathew@focaloid.com'
-recipient_email = 'Rijomathewstudy555@outlook.com'
+sender_email = 'rijomathew555@gmail.com'
+recipient_email = 'mathewrijo23@gmail.com'
 subject = 'Test email with attachment'
 body_text = 'This is a test email with an attachment sent from boto3.'
 body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
