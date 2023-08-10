@@ -35,10 +35,6 @@ jobs:
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
           pwd 
           ls -la
-          sudo chmod -R 777 /home/runner/work/workflows/workflows/*'
-          pwd
-          ls -la
-          cd /home/runner/work/workflows/workflows/
           zip -r zap_report.zip *.html
          
 
