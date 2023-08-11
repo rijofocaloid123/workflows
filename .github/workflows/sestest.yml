@@ -33,7 +33,7 @@ jobs:
           docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
           pwd 
           ls -la
-          zip -r zap_report.zip **/*
+          zip -r zap_report.zip *dev-bo.nephroplus.com*
           python ses.py
           ls -lah
         env:
