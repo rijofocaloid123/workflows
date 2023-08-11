@@ -3,7 +3,7 @@ name: OWASP ZAP Scan
 on:
   push:
     branches:
-      - main  # Change this to your default branch name
+      - main  # Change this to your default branch name 
 
 jobs:
   zap_scan:
