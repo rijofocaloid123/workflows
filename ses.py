@@ -7,8 +7,8 @@ from email.mime.application import MIMEApplication
 import shutil
 
 # Set your AWS credentials
-aws_access_key = 'AKIA6LBJHUQAJT5JTVYC'
-aws_secret_key = 'JHvBAaj+Z34udBH2zi44eTvyKIrkBNqml5fNW4kb'
+aws_access_key = os.environ.get('AWS_ACCESS_KEY_ID')
+aws_secret_key = os.environ.get('AWS_SECRET_ACCESS_KEY')
 region = 'us-east-1'  # Change to your desired AWS region 
 
 # Set email parameters
