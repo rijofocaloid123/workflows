@@ -23,7 +23,7 @@ region = 'eu-north-1'  # Change to your desired AWS region
 
 # Set email parameters
 sender_email = 'rijomathew555@gmail.com'
-recipient_email = 'mathewrijo23@gmail.com,devopstesting539@gmail.com,hellofabin@gmail.com'
+recipient_emails = ['mathewrijo23@gmail.com', 'devopstesting539@gmail.com', 'hellofabin@gmail.com']
 subject = 'Test email with attachment'
 body_text = 'This is a test email with an attachment sent from boto3.'
 body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
@@ -40,7 +40,7 @@ ses = boto3.client('ses', region_name=region, aws_access_key_id=aws_access_key, 
 msg = MIMEMultipart('mixed')
 msg['Subject'] = subject
 msg['From'] = sender_email
-msg['To'] = recipient_email
+msg['To'] = ', '.join(recipient_emails)  # Join recipient emails with a comma and space
 
 # Attach the text part
 msg.attach(MIMEText(body_text, 'plain'))
