@@ -1,9 +1,8 @@
 name: OWASP ZAP Scan
 
 on:
-  push:
-    branches:
-      - main  # Change this to your default branch name 
+  schedule:
+    - cron: '*/30 * * * *'  # Schedule to run every 30 minutes
 
 jobs:
   zap_scan:
