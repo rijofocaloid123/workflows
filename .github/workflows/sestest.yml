@@ -2,7 +2,7 @@ name: OWASP ZAP Scan
 
 on:
   schedule:
-    - cron: '46 16 * * *'  # Schedule to run every 10 minutes
+    - cron: '18 11 * * *'  # Schedule to run every 10 minutes
 
 jobs:
   zap_scan:
