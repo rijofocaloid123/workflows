@@ -36,7 +36,8 @@ jobs:
           python ses.py
           ls -lah
         env:
-          API_KEY: ${{ secrets.API_KEY }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           
       - name: Upload Report
         uses: actions/upload-artifact@v2
