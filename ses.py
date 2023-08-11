@@ -25,7 +25,16 @@ body_html = '<html><body><h1>This is a test email with an attachment sent from b
  
 
 # Path to the file you want to attach
-attachment_file_path = '/home/runner/work/workflows/workflows/zap_report.zip'
+attachment_file_path = [
+    '/home/runner/work/workflows/workflows/zap_report.zip'
+    '/home/runner/work/workflows/workflows/*.png'
+    '/home/runner/work/workflows/workflows/*.css'
+    '/home/runner/work/workflows/workflows/*.md'
+    '/home/runner/work/workflows/workflows/*.html'
+    '/home/runner/work/workflows/workflows/*.js'
+    '/home/runner/work/workflows/workflows/*.yml'
+
+]
  
  
 
@@ -55,9 +64,16 @@ msg.attach(MIMEText(body_html, 'html'))
  
 
 # Attach the file
-attachment_mime = MIMEApplication(attachment_content, _subtype='html')
-attachment_mime.add_header('Content-Disposition', 'attachment', filename=os.path.basename(attachment_file_path))
-msg.attach(attachment_mime)
+for attachment_file_path in attachment_file_paths:
+    with open(attachment_file_path, 'rb') as attachment_file:
+        attachment_content = attachment_file.read()
+        mime_type, _ = mimetypes.guess_type(attachment_file_path)
+        
+        attachment_mime = MIMEApplication(attachment_content, _subtype='octet-stream')
+        attachment_mime.add_header('Content-Disposition', 'attachment', filename=os.path.basename(attachment_file_path))
+        attachment_mime.add_header('Content-Type', mime_type)
+        
+        msg.attach(attachment_mime)
 
  
 
