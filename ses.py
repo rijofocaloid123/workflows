@@ -40,7 +40,7 @@ ses = boto3.client('ses', region_name=region, aws_access_key_id=aws_access_key, 
 msg = MIMEMultipart('mixed')
 msg['Subject'] = subject
 msg['From'] = sender_email
-msg['To'] = ', '.join(recipient_emails)  # Join recipient emails with a comma and space
+msg['To'] = (recipient_emails)  # Join recipient emails with a comma and space
 
 # Attach the text part
 msg.attach(MIMEText(body_text, 'plain'))
