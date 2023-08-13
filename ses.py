@@ -5,25 +5,15 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.application import MIMEApplication
 import shutil
-import json
 
-# Read AWS credentials from the file
-with open('aws_credentials.json') as f:
-    aws_credentials = json.load(f)
-
- 
-
-aws_access_key = aws_credentials.get('aws_access_key_id')
-aws_secret_key = aws_credentials.get('aws_secret_access_key')
-
- 
-
-# Set your AWS region
-region = 'us-north-1'  # Change to your desired AWS region
+# Set your AWS credentials
+aws_access_key = 'AKIA6LBJHUQAJT5JTVYC'
+aws_secret_key = 'JHvBAaj+Z34udBH2zi44eTvyKIrkBNqml5fNW4kb'
+region = 'us-east-1'  # Change to your desired AWS region 
 
 # Set email parameters
 sender_email = 'rijomathew555@gmail.com'
-recipient_emails = 'mathewrijo23@gmail.com'
+recipient_email = 'mathewrijo23@gmail.com'
 subject = 'Test email with attachment'
 body_text = 'This is a test email with an attachment sent from boto3.'
 body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
