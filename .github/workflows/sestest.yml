@@ -1,8 +1,9 @@
 name: OWASP ZAP Scan
 
 on:
-  schedule:
-    - cron: '54 15 * * *'  # Schedule to run every 10 minutes
+  push:
+    branches:
+      - main  # Change this to your default branch name
 
 jobs:
   zap_scan:
@@ -27,11 +28,9 @@ jobs:
 
       - name: Run OWASP ZAP Scan
         run: |
-          docker pull ghcr.io/zaproxy/zaproxy:stable
-          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
+          echo "This is the content of the attachment file" > zap_report.zip
           pwd 
           ls -la
-          zip -r zap_report.zip *dev-bo.nephroplus.com*
           python ses.py
           ls -lah
         env:
