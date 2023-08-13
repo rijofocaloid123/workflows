@@ -1,0 +1,46 @@
+name: OWASP ZAP Scan
+
+on:
+  schedule:
+    - cron: '54 15 * * *'  # Schedule to run every 10 minutes
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up permissions
+        run: sudo chmod -R 777 $(pwd)
+
+      - name: Set up Python and send email
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install boto3
+
+      - name: Run OWASP ZAP Scan
+        run: |
+          docker pull ghcr.io/zaproxy/zaproxy:stable
+          docker run -v $(pwd):/zap/wrk/:rw -t owasp/zap2docker-stable zap.sh -cmd -autorun /zap/wrk/zap.yml || true
+          pwd 
+          ls -la
+          zip -r zap_report.zip *dev-bo.nephroplus.com*
+          python ses.py
+          ls -lah
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          
+      - name: Upload Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: zap-report
+          path: /home/runner/work/workflows/workflows/zap_report.zip
+
