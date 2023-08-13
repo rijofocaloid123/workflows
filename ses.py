@@ -31,7 +31,7 @@ body_html = '<html><body><h1>This is a test email with an attachment sent from b
 
 
 # Path to the zip file you want to attach
-attachment_file_path = '/home/runner/work/workflows/workflows/zap_report.zip'
+attachment_file_path = 'zap_report.zip'
 
 # Connect to Amazon SES
 ses = boto3.client('ses', region_name=region, aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
@@ -40,7 +40,7 @@ ses = boto3.client('ses', region_name=region, aws_access_key_id=aws_access_key, 
 msg = MIMEMultipart('mixed')
 msg['Subject'] = subject
 msg['From'] = sender_email
-msg['To'] = (recipient_emails)  # Join recipient emails with a comma and space
+msg['To'] = recipient_email
 
 # Attach the text part
 msg.attach(MIMEText(body_text, 'plain'))
@@ -58,6 +58,19 @@ msg.attach(attachment_mime)
 # Convert the message to a string
 raw_message = msg.as_string()
 
+# Send the email with attachment
+try:
+    response = ses.send_raw_email(
+        Source=sender_email,
+        Destinations=[recipient_email],
+        RawMessage={'Data': raw_message}
+    )
+    print("Email with attachment sent successfully!")
+except NoCredentialsError:
+    print("AWS credentials not found, or incorrect.")
+except Exception as e:
+    print("An error occurred:", str(e)) 
+ 
 # Send the email with attachment
 try:
     response = ses.send_raw_email(
