@@ -19,7 +19,7 @@ aws_secret_key = aws_credentials.get('aws_secret_access_key')
  
 
 # Set your AWS region
-region = 'eu-north-1'  # Change to your desired AWS region
+region = 'us-north-1'  # Change to your desired AWS region
 
 # Set email parameters
 sender_email = 'rijomathew555@gmail.com'
