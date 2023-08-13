@@ -23,7 +23,7 @@ region = 'us-north-1'  # Change to your desired AWS region
 
 # Set email parameters
 sender_email = 'rijomathew555@gmail.com'
-recipient_emails = ['mathewrijo23@gmail.com', 'devopstesting539@gmail.com', 'hellofabin@gmail.com']
+recipient_emails = 'mathewrijo23@gmail.com'
 subject = 'Test email with attachment'
 body_text = 'This is a test email with an attachment sent from boto3.'
 body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
