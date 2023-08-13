@@ -22,6 +22,7 @@ region = 'us-east-1'  # Change to your desired AWS region
 # Set email parameters
 sender_email = 'rijomathew555@gmail.com'
 recipient_email = 'mathewrijo23@gmail.com'
+cc_emails = ['devopstesting539@gmail.com', 'hellofabin@gmail.com']
 subject = 'Test email with attachment'
 body_text = 'This is a test email with an attachment sent from boto3.'
 body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
@@ -29,7 +30,7 @@ body_html = '<html><body><h1>This is a test email with an attachment sent from b
 
 
 # Path to the zip file you want to attach
-attachment_file_path = '/home/runner/work/workflows/workflows/zap_report.zip'
+attachment_file_path = 'zap_report.zip'
 
 # Connect to Amazon SES
 ses = boto3.client('ses', region_name=region, aws_access_key_id=aws_access_key, aws_secret_access_key=aws_secret_key)
@@ -39,6 +40,7 @@ msg = MIMEMultipart('mixed')
 msg['Subject'] = subject
 msg['From'] = sender_email
 msg['To'] = recipient_email
+msg['CC'] = ', '.join(cc_emails)  # Add CC email addresses to the message headers
 
 # Attach the text part
 msg.attach(MIMEText(body_text, 'plain'))
@@ -60,20 +62,7 @@ raw_message = msg.as_string()
 try:
     response = ses.send_raw_email(
         Source=sender_email,
-        Destinations=[recipient_email],
-        RawMessage={'Data': raw_message}
-    )
-    print("Email with attachment sent successfully!")
-except NoCredentialsError:
-    print("AWS credentials not found, or incorrect.")
-except Exception as e:
-    print("An error occurred:", str(e)) 
- 
-# Send the email with attachment
-try:
-    response = ses.send_raw_email(
-        Source=sender_email,
-        Destinations=[recipient_email],
+        Destinations=[recipient_email] + cc_emails,  # Include CC recipients in Destinations
         RawMessage={'Data': raw_message}
     )
     print("Email with attachment sent successfully!")
