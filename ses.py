@@ -24,8 +24,8 @@ sender_email = 'rijomathew555@gmail.com'
 recipient_email = 'mathewrijo23@gmail.com'
 cc_emails = ['devopstesting539@gmail.com', 'hellofabin@gmail.com']
 subject = 'Test email with attachment'
-body_text = 'Kindly refer the attached ZAP scan report of nephroplus.com.'
-body_html = '<html><body><h1>This is a test email with an attachment sent from boto3.</h1></body></html>'
+body_text = 'Scanning report'
+body_html = '<html><body><h1>Kindly refer the attached ZAP scan report of nephroplus.com.</h1></body></html>'
 
 
 
