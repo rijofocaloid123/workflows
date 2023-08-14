@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up permissions
+      - name: Set up permissions 
         run: sudo chmod -R 777 $(pwd)
 
       - name: Set up Python and send email
