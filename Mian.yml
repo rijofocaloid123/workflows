@@ -1,5 +1,5 @@
 name: OWASP ZAP Scan
-
+ 
 on:
   schedule:
     - cron: '54 15 * * *'  # Schedule to run every 10 minutes
