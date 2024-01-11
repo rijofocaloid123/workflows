@@ -42,5 +42,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: zap-report
-          path: /home/runner/work/workflows/workflows/zap_report.zip
+          path: /home/runner/work/workflows/workflows/zap_report.zip 
 
